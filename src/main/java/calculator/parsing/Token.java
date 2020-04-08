@@ -35,7 +35,10 @@ public class Token {
                     token.append(s.charAt(i));
                     i++;
                     if(tt.equals(TokenType.OPEN_PARENTHESES)) {
-                        if(tokens.size() > 0 && (tokens.get(tokens.size()-1).tokenType == TokenType.NUMBER || tokens.get(tokens.size()-1).tokenType == TokenType.CONSTANT)) {
+                        if(tokens.size() > 0 &&
+                                (tokens.get(tokens.size()-1).tokenType == TokenType.NUMBER ||
+                                 tokens.get(tokens.size()-1).tokenType == TokenType.CONSTANT ||
+                                 tokens.get(tokens.size()-1).tokenType == TokenType.CLOSE_PARENTHESES)) {
                             tokens.add(tokens.size(), new Token(TokenType.OPERATOR, "*"));
                         }
                         break;

@@ -17,6 +17,7 @@ public class Calculator {
     private static Value previous = new Value(0);
 
     private static Boolean isExplicit = false;
+    private static Boolean onlyResult = false;
 
     public static void main(String[] args) {
         if(args.length > 0) {
@@ -24,6 +25,7 @@ public class Calculator {
             for(int i = 0; i < args.length; i++) {
                 switch(args[i]) {
                     case "-explicit": isExplicit = true; break;
+                    case "-no-equals": onlyResult = true; break;
                     default: sb.append(args[i]);
                 }
             }
@@ -51,7 +53,8 @@ public class Calculator {
         if(isExplicit) System.out.println(e);
         Value v = e.eval();
         if(!(v instanceof Error)) previous = v;
-        System.out.println(" = " + v);
+        if(!onlyResult) System.out.print(" = ");
+        System.out.println(v);
     }
 
     private static Boolean indicatesExit(String s) {
@@ -74,6 +77,7 @@ public class Calculator {
                 exitAliasList + ": exits the program\n" +
                 helpAliasList + ": shows this help text\n" +
                 "List of supported flags:\n" +
-                "-explicit: shows the interpreted expression before evaluating\n");
+                "-explicit: shows the interpreted expression before evaluating, useful for checking order of application, desugaring etc.\n" +
+                "-no-equals: omits the equals sign '=' before the result, useful for easy parsing of output");
     }
 }

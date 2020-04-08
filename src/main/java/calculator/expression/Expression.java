@@ -62,6 +62,11 @@ public abstract class Expression {
             leastImportantInd--;
         }
 
+        //now it is possible that the tokenlist is empty, i.e. the expression was only '()'
+        if(tokens.size() == 0) {
+            return new Error(Error.ErrorCode.SYNTAX_ERROR, "()");
+        }
+
 
         Expression lhs = null, rhs = null;
         if(leastImportant != NONE) {
