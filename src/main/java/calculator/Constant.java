@@ -1,8 +1,9 @@
 package calculator;
 
 public enum Constant {
-    PI(3.14159265359),
-    E(2.71828182846);
+    PI(Math.PI),
+    E(Math.E),
+    ANS(0);
 
     private double value;
 

@@ -10,6 +10,8 @@ public class Error extends Value {
         UNIMPLEMENTED_OPERATION,
         UNKNOWN_CONSTANT,
         MISMATCHED_PARENTHESES,
+        TOO_FEW_ARGUMENTS,
+        TOO_MANY_ARGUMENTS,
         INTERNAL_ERROR;
     }
 
