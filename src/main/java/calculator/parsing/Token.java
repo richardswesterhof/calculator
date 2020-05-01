@@ -1,11 +1,8 @@
 package calculator.parsing;
 
-import calculator.Error;
-
 import java.util.ArrayList;
 
 import static calculator.expression.Expression.knownFunctions;
-import static calculator.expression.Operator.MINUS;
 import static java.lang.Character.isWhitespace;
 
 public class Token {
@@ -76,7 +73,7 @@ public class Token {
 
     public static ArrayList<Token> desugar(ArrayList<Token> sugared) {
         for(int i = 0; i < sugared.size(); i++) {
-            Token sugaredIm1 = i > 0 ? sugared.get(i - 1) : null;
+            Token sugaredIm1 = i > 0 ? sugared.get(i - 1) : new Token(TokenType.NONE, "NONE");
 
             //make difference between constant and function
             if(sugared.get(i).tokenType == TokenType.CONSTANT && isKnownFunction(sugared.get(i).value()))
@@ -86,12 +83,14 @@ public class Token {
             if(((i > 0 && i < sugared.size() - 1 && sugaredIm1.tokenType() != TokenType.CONSTANT
                     && sugaredIm1.tokenType() != TokenType.NUMBER ) || i == 0)
                     && sugared.get(i).value().equals("-")) {
-                sugared.add(i+2, new Token(TokenType.CLOSE_PARENTHESES, ")"));
+                //sugared.add(i+2, new Token(TokenType.CLOSE_PARENTHESES, ")"));
                 sugared.add(i+1, new Token(TokenType.OPERATOR, "*"));
                 sugared.add(i+1, new Token(TokenType.NUMBER, "-1"));
-                sugared.add(i, new Token(TokenType.OPEN_PARENTHESES, "("));
-                sugared.remove(i+1);
-                i += 3;
+                //sugared.add(i, new Token(TokenType.OPEN_PARENTHESES, "("));
+                //sugared.remove(i+1);
+                sugared.remove(i);
+                //i+=3;
+                i++;
             }
 
             //add multiplication sign '*' between number/constant and parenthesis

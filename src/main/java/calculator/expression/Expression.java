@@ -55,14 +55,21 @@ public abstract class Expression {
             return new Error(Error.ErrorCode.MISMATCHED_PARENTHESES, tokens);
         }
 
-        //System.out.println("least important operator in " + tokens + ": " + leastImportant + " at index " + leastImportantInd);
+        System.out.println("least important operator in " + tokens + ": " + leastImportant + " at index " + leastImportantInd);
 
-        if(parenthesesStart > -1 && parenthesesEnd > -1 && (leastImportant == NUMBER ||
-                (leastImportantInd > parenthesesStart && leastImportantInd < parenthesesEnd))) {
-            tokens.remove(parenthesesEnd);
-            tokens.remove(parenthesesStart);
-            leastImportantInd--;
+        //remove excess parentheses
+        if(parenthesesStart > -1 && parenthesesEnd > -1) {
+            while(leastImportantInd > -1 && leastImportantInd > parenthesesStart && leastImportantInd < parenthesesEnd &&
+                    isParenthesis(tokens.get(parenthesesStart).value()) && isParenthesis(tokens.get(parenthesesEnd).value())) {
+                tokens.remove(parenthesesEnd);
+                tokens.remove(parenthesesStart);
+                leastImportantInd--;
+                parenthesesEnd -= 2;
+            }
+
         }
+
+        System.out.println("without excess parentheses: " + tokens);
 
         //now it is possible that the tokenlist is empty, i.e. the expression was only '()'
         if(tokens.size() == 0) {
@@ -165,6 +172,10 @@ public abstract class Expression {
         if(arguments.size() < n) return new Error(Error.ErrorCode.TOO_FEW_ARGUMENTS, funcName + arguments);
         if(arguments.size() > n) return new Error(Error.ErrorCode.TOO_MANY_ARGUMENTS, funcName + arguments);
         return null;
+    }
+
+    private static Boolean isParenthesis(String s) {
+        return s.equals("(") || s.equals(")");
     }
 
 

@@ -18,6 +18,7 @@ public class Calculator {
 
     private static Boolean isExplicit = false;
     private static Boolean onlyResult = false;
+    private static Boolean debug = false;
 
     public static void main(String[] args) {
         if(args.length > 0) {
@@ -26,6 +27,7 @@ public class Calculator {
                 switch(args[i]) {
                     case "-explicit": isExplicit = true; break;
                     case "-no-equals": onlyResult = true; break;
+                    case "-debug" : debug = true; break;
                     default: sb.append(args[i]);
                 }
             }
@@ -71,13 +73,14 @@ public class Calculator {
                 "The constant name 'ans' is special, as it is equal to the value of the previous expression, or 0 if no previous calculation was done\n" +
                 "If the previous calculation resulted in an error, the value of 'ans' will not be changed\n" +
                 "Decimal values are specified using a dot '.', use of commas is NOT supported in any way!\n" +
-                "A multiplication sign '*' before an opening parenthesis '(' may be omitted, i.e. 2(1+1) is equivalent to 2*(1+1)\n" +
-                "Any whitespace present in an expression will be removed, it is therefore also not necessary\n" +
+                "A multiplication sign '*' before an opening parenthesis '(', constant 'pi' or function name 'sin' may be omitted, i.e. 2(1+1) is equivalent to 2*(1+1)\n" +
+                "Whitespace is not necessary, unless it is used to separate two names, i.e. 'sin pi' requires a space, but 'sin3.14' does not\n" +
                 "List of commands with their aliases:\n" +
                 exitAliasList + ": exits the program\n" +
                 helpAliasList + ": shows this help text\n" +
                 "List of supported flags:\n" +
                 "-explicit: shows the interpreted expression before evaluating, useful for checking order of application, desugaring etc.\n" +
-                "-no-equals: omits the equals sign '=' before the result, useful for easy parsing of output");
+                "-no-equals: omits the equals sign '=' before the result, useful for easy parsing of output\n" +
+                "-debug: enables debugging info at several steps during the parsing and evaluation of expressions");
     }
 }
