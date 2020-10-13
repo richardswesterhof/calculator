@@ -1,0 +1,3 @@
+@ECHO OFF
+SET /A x=%1
+ECHO %X%
